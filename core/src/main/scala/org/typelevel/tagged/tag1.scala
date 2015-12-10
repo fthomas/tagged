@@ -9,7 +9,9 @@ object tag1 {
 
   type @@[T, U] = T with Tagged[U]
 
-  def apply[U] = new Tagger[U]
+  def tag[U] = new Tagger[U]
+
+  def untag[T, U](tu: T @@ U): T = tu
 
   class Tagger[U] {
     def apply[T](t: T): T @@ U = t.asInstanceOf[T @@ U]

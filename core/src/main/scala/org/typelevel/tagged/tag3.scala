@@ -7,7 +7,9 @@ object tag3 {
 
   final case class @@[T, U](t: T) extends AnyVal
 
-  def apply[U] = new Tagger[U]
+  def tag[U] = new Tagger[U]
+
+  def untag[T, U](tu: T @@ U): T = tu.t
 
   class Tagger[U] {
     def apply[T](t: T): T @@ U = @@(t)
