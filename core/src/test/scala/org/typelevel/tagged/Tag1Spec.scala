@@ -5,6 +5,7 @@ import org.scalacheck.Properties
 import org.typelevel.tagged.TestUtils._
 import org.typelevel.tagged.tag1._
 import shapeless.=:!=
+import shapeless.test.illTyped
 
 class Tag1Spec extends Properties("tag1") {
 
@@ -22,6 +23,13 @@ class Tag1Spec extends Properties("tag1") {
 
   property("(T @@ U) <: T") = wellTyped {
     implicitly[(Int @@ SomeTag) <:< Int]
+  }
+
+  property("type alias unfriendly") = wellTyped {
+    type SomeInt = Int @@ SomeTag
+    def foo(i: SomeInt) = i
+    illTyped("foo(tag(1))", "(?s)type mismatch.*")
+    // see https://issues.scala-lang.org/browse/SI-8740
   }
 
 }

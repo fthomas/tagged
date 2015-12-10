@@ -12,7 +12,7 @@ class Tag3Spec extends Properties("tag3") {
     untag(tag[SomeTag](i)) == i
   }
 
-  property("tag(x) == x") = secure {
+  property("tag(x) != x") = secure {
     tag[SomeTag](1) != 1
   }
 
@@ -22,6 +22,12 @@ class Tag3Spec extends Properties("tag3") {
 
   property("(T @@ U) <:! T") = wellTyped {
     implicitly[(Int @@ SomeTag) <:!< Int]
+  }
+
+  property("type alias friendly") = secure {
+    type SomeInt = Int @@ SomeTag
+    def foo(i: SomeInt) = i
+    foo(tag(1)) == tag[SomeTag](1)
   }
 
 }

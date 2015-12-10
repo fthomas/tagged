@@ -24,4 +24,10 @@ class Tag2Spec extends Properties("tag2") {
     implicitly[(Int @@ SomeTag) <:!< Int]
   }
 
+  property("type alias friendly") = secure {
+    type SomeInt = Int @@ SomeTag
+    def foo(i: SomeInt) = i
+    foo(tag(1)) == tag[SomeTag](1)
+  }
+
 }
