@@ -33,6 +33,9 @@ lazy val coreJS  = coreM.js
 lazy val coreM   = module("core", CrossType.Pure)
   .settings(addTestLibs(vAll, "scalacheck", "shapeless"): _*)
 
+lazy val docs = project.configure(mkDocConfig(gh, rootSettings, commonJvmSettings))
+  .settings(tutTargetDirectory := baseDirectory.value)
+
 lazy val rootSettings = buildSettings ++ scoverageSettings ++ styleSettings
 
 lazy val buildSettings = sharedBuildSettings(gh, vAll)
