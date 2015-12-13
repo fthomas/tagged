@@ -7,7 +7,7 @@ import org.typelevel.tagged.tag1._
 import shapeless.=:!=
 import shapeless.test.illTyped
 
-class Tag1Spec extends Properties("tag1") {
+object Tag1Spec extends Properties("tag1") {
 
   property("untag . tag = id") = forAll { (i: Int) =>
     untag(tag[SomeTag](i)) == i
@@ -31,5 +31,4 @@ class Tag1Spec extends Properties("tag1") {
     illTyped("foo(tag(1))", "(?s)type mismatch.*")
     // see https://issues.scala-lang.org/browse/SI-8740
   }
-
 }

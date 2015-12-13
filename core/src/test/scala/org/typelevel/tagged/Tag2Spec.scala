@@ -6,7 +6,7 @@ import org.typelevel.tagged.TestUtils._
 import org.typelevel.tagged.tag2._
 import shapeless.{<:!<, =:!=}
 
-class Tag2Spec extends Properties("tag2") {
+object Tag2Spec extends Properties("tag2") {
 
   property("untag . tag = id") = forAll { (i: Int) =>
     untag(tag[SomeTag](i)) == i
@@ -29,5 +29,4 @@ class Tag2Spec extends Properties("tag2") {
     def foo(i: SomeInt) = i
     foo(tag(1)) == tag[SomeTag](1)
   }
-
 }

@@ -1,6 +1,10 @@
 package org.typelevel.tagged
 
+import java.net.URL
+
 import org.scalacheck.Prop
+
+import scala.sys.process._
 
 object TestUtils {
 
@@ -11,4 +15,12 @@ object TestUtils {
     true
   }
 
+  def getClassFile[C](c: C): String =
+    c.getClass.getCanonicalName.replace('.', '/') + ".class"
+
+  def getClassFilePath[C](c: C): URL =
+    getClass.getClassLoader.getResource(getClassFile(c))
+
+  def javapOutput[C](c: C): String =
+    s"javap ${getClassFilePath(c)}".!!.trim
 }
