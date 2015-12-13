@@ -10,6 +10,7 @@ class Tag2DisassembledAnyVal {
   val tagged: Int @@ SomeTag = tag(1)
   val untagged: Int = untag(tagged)
   val arrayWithTagged: Array[Int @@ SomeTag] = Array(tag(1), tag(2))
+  val taggedTwice: (Int @@ SomeTag) @@ SomeTag = tag(tag(1))
 }
 
 class Tag2DisassembledAnyRef {
@@ -17,6 +18,7 @@ class Tag2DisassembledAnyRef {
   val tagged: String @@ SomeTag = tag("1")
   val untagged: String = untag(tagged)
   val arrayWithTagged: Array[String @@ SomeTag] = Array(tag("1"), tag("2"))
+  val taggedTwice: (String @@ SomeTag) @@ SomeTag = tag(tag("1"))
 }
 
 object Tag2SpecJvm extends Properties("tag2") {
@@ -30,6 +32,7 @@ object Tag2SpecJvm extends Properties("tag2") {
         |  public java.lang.Object tagged();
         |  public int untagged();
         |  public java.lang.Object[] arrayWithTagged();
+        |  public java.lang.Object taggedTwice();
         |  public org.typelevel.tagged.Tag2DisassembledAnyVal();
         |}
       """.stripMargin.trim
@@ -45,6 +48,7 @@ object Tag2SpecJvm extends Properties("tag2") {
         |  public java.lang.Object tagged();
         |  public java.lang.String untagged();
         |  public java.lang.Object[] arrayWithTagged();
+        |  public java.lang.Object taggedTwice();
         |  public org.typelevel.tagged.Tag2DisassembledAnyRef();
         |}
       """.stripMargin.trim

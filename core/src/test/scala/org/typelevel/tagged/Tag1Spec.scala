@@ -33,10 +33,14 @@ object Tag1Spec extends Properties("tag1") {
     implicitly[(Int @@ SomeTag) <:< AnyRef]
   }
 
-  property("type alias unfriendly") = wellTyped {
+  property("type alias") = wellTyped {
     type SomeInt = Int @@ SomeTag
     def foo(i: SomeInt) = i
     illTyped("foo(tag(1))", "(?s)type mismatch.*")
     // see https://issues.scala-lang.org/browse/SI-8740
+  }
+
+  property("nested tags") = wellTyped {
+    illTyped("tag[SomeTag](tag[SomeTag](1))", "cyclic aliasing or subtyping involving type @@")
   }
 }

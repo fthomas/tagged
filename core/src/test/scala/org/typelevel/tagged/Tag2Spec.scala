@@ -32,9 +32,13 @@ object Tag2Spec extends Properties("tag2") {
     implicitly[(Int @@ SomeTag) <:< AnyRef]
   }
 
-  property("type alias friendly") = secure {
+  property("type alias") = secure {
     type SomeInt = Int @@ SomeTag
     def foo(i: SomeInt) = i
     foo(tag(1)) == tag[SomeTag](1)
+  }
+
+  property("nested tags") = wellTyped {
+    tag[SomeTag](tag[SomeTag](1))
   }
 }
