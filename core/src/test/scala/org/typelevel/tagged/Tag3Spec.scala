@@ -39,6 +39,6 @@ object Tag3Spec extends Properties("tag3") {
   }
 
   property("nested tags") = wellTyped {
-    tag[SomeTag](tag[SomeTag](1))
+    val i: (Int @@ SomeTag) @@ SomeTag = tag[SomeTag](tag[SomeTag](1))
   }
 }

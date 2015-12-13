@@ -41,6 +41,7 @@ object Tag1Spec extends Properties("tag1") {
   }
 
   property("nested tags") = wellTyped {
-    illTyped("tag[SomeTag](tag[SomeTag](1))", "cyclic aliasing or subtyping involving type @@")
+    illTyped("val i: (Int @@ SomeTag) @@ SomeTag = tag[SomeTag](tag[SomeTag](1))",
+      "cyclic aliasing or subtyping involving type @@")
   }
 }
